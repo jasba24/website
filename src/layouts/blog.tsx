@@ -79,7 +79,7 @@ export default function PostLayout({ post }: Props): JSX.Element {
         url={window.location.href}
       />
 
-      <article className="container px-5 py-16">
+      <article className="container px-4 py-16">
         <div className="container">
           <div className="dark:text-white lg:w-3/4 xl:w-2/3 mx-auto text-center">
             <h1 className="mb-20 text-3xl font-semibold sm:text-5xl md:text-[5rem]">
@@ -120,7 +120,6 @@ export default function PostLayout({ post }: Props): JSX.Element {
                 <p className="dark:text-white text-gray-500">
                   {readingTime({
                     wordCount: post.body.split(/\s+/gu).length,
-                    lang: locale,
                   })}
                 </p>
                 <p className="dark:text-white text-gray-500">

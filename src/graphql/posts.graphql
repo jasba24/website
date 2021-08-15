@@ -1,0 +1,33 @@
+query posts($offset: Int!, $first: Int!, $locale: Locale!) {
+  postsConnection(
+    orderBy: published_DESC
+    skip: $offset
+    first: $first
+    locales: [$locale]
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    posts: edges {
+      node {
+        id
+        title
+        slug
+        published
+        body
+        cover(locales: [en]) {
+          handle
+          height
+          width
+          url
+        }
+        tags {
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+}

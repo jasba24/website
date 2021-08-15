@@ -10,7 +10,7 @@ query getPortfolio($id: ID!, $stage: Stage!, $locale: Locale!) {
     publishedAt
     title
     slug
-    cover(locales: [es]) {
+    cover(locales: [en]) {
       handle
       height
       width
@@ -19,7 +19,7 @@ query getPortfolio($id: ID!, $stage: Stage!, $locale: Locale!) {
     technologies
     project_url
     body
-    seo(locales: [$locale]) {
+    seo {
       locale
       title
       description

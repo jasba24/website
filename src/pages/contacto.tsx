@@ -34,7 +34,7 @@ const Contacto: NextPage = () => {
         </div>
       </section>
 
-      <section className="container px-5">
+      <section className="container px-4">
         <div className="lg:grid-cols-2 lg:max-w-none xl:my-32 grid items-center max-w-lg gap-16 mx-auto my-16">
           <div>
             <h2 className="dark:text-white sm:text-4xl md:text-5xl mb-4 text-3xl font-semibold text-gray-700">

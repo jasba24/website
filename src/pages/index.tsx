@@ -95,7 +95,7 @@ const Index: NextPage<Props> = ({ posts, videos }): JSX.Element => {
 
       {videos?.length && (
         <div className="py-6 w-full bg-[#f9f9f9] dark:bg-[#181818] border-t border-black dark:border-white border-opacity-10 dark:border-opacity-10">
-          <div className="container px-5 mb-10">
+          <div className="container px-4 mb-10">
             <div className="flex flex-row justify-between my-6">
               <h2 className="flex flex-row self-center font-roboto text-[20px] font-bold text-black dark:text-white">
                 {t('home.videos.title')}

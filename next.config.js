@@ -1,102 +1,96 @@
-const withPWA = require('next-pwa')
-const withProgressBar = require('next-progressbar')
-
-module.exports = withProgressBar(
-  withPWA({
-    experimental: {
-      esmExternals: true,
-    },
-    webpack5: true,
-    pwa: {
-      disable: process.env.NODE_ENV === 'development',
-      dest: 'public',
-    },
-    i18n: {
-      locales: ['es', 'en'],
-      defaultLocale: 'es',
-    },
-    images: {
-      domains: [
-        'github-readme-stats.danestves.com',
-        'raw.githubusercontent.com',
-        'media.graphcms.com',
-        'i.ytimg.com',
-      ],
-    },
-    async headers() {
-      return [
-        {
-          source: '/',
-          headers: securityHeaders,
-        },
-        {
-          source: '/:path*',
-          headers: securityHeaders,
-        },
-      ]
-    },
-    async redirects() {
-      return [
-        {
-          source: '/DanielEsteves.pdf',
-          destination: '/danestves-resume.pdf',
-          permanent: true,
-        },
-        {
-          source: '/danestves.pdf',
-          destination: '/danestves-resume.pdf',
-          permanent: true,
-        },
-        {
-          source: '/github',
-          destination: 'https://github.com/danestves?tab=repositories',
-          permanent: true,
-        },
-        {
-          source: '/twitter',
-          destination: 'https://twitter.com/danestves',
-          permanent: true,
-        },
-        {
-          source: '/youtube',
-          destination:
-            'https://www.youtube.com/channel/UC6YYVDKZC3mu1iB8IOCFqcw',
-          permanent: true,
-        },
-      ]
-    },
-    async rewrites() {
-      return [
-        {
-          source: '/bee.js',
-          destination: 'https://cdn.splitbee.io/sb.js',
-        },
-        {
-          source: '/_hive/:slug',
-          destination: 'https://hive.splitbee.io/:slug',
-        },
-      ]
-    },
-    webpack: (config, { dev, isServer }) => {
-      config.module.rules.push({
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: 'graphql-tag/loader',
+/** @type {import("next/dist/server/config").NextConfig } */
+module.exports = {
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['es', 'en'],
+    localeDetection: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/',
+        headers: securityHeaders,
+      },
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        destination: 'https://cdn.splitbee.io/sb.js',
+        source: '/bee.js',
+      },
+      {
+        destination: 'https://hive.splitbee.io/:slug',
+        source: '/_hive/:slug',
+      },
+    ]
+  },
+  async redirects() {
+    return [
+      {
+        destination: '/danestves-resume.pdf',
+        source: '/DanielEsteves.pdf',
+        permanent: true,
+      },
+      {
+        destination: '/danestves-resume.pdf',
+        source: '/danestves.pdf',
+        permanent: true,
+      },
+      {
+        destination: 'https://github.com/danestves?tab=repositories',
+        source: '/github',
+        permanent: true,
+      },
+      {
+        destination: '/posts/page/1',
+        source: '/posts',
+        permanent: true,
+      },
+      {
+        destination: 'https://twitter.com/danestves',
+        source: '/twitter',
+        permanent: true,
+      },
+      {
+        destination: 'https://www.youtube.com/channel/UC6YYVDKZC3mu1iB8IOCFqcw',
+        source: '/youtube',
+        permanent: true,
+      },
+    ]
+  },
+  images: {
+    domains: [
+      'github-readme-stats.danestves.com',
+      'raw.githubusercontent.com',
+      'media.graphcms.com',
+      'i.ytimg.com',
+    ],
+  },
+  experimental: {
+    esmExternals: true,
+  },
+  webpack: (config, { dev, isServer }) => {
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    })
+    // Replace React with Preact only in client production build
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat',
       })
-
-      // Replace React with Preact only in client production build
-      if (!dev && !isServer) {
-        Object.assign(config.resolve.alias, {
-          react: 'preact/compat',
-          'react-dom/test-utils': 'preact/test-utils',
-          'react-dom': 'preact/compat',
-        })
-      }
-
-      return config
-    },
-  })
-)
+    }
+    return config
+  },
+}
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `

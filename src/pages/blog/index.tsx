@@ -41,7 +41,7 @@ const BlogPage: NextPage<Props> = ({ featuredPost, posts }) => {
         {featuredPost && (
           <Link
             className="group"
-            href={`/blog/${featuredPost.slug}-${featuredPost.id}`}
+            href={`/blog/${featuredPost.slug}`}
             locale={locale}
           >
             <div className="lg:grid lg:grid-cols-12 lg:max-w-none items-center max-w-lg gap-12 mx-auto">

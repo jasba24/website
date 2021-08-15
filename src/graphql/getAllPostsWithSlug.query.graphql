@@ -5,7 +5,7 @@ query getAllPostsWithSlug($locale: Locale!) {
     updatedAt
     slug
     published
-    seo(locales: [$locale]) {
+    seo(locales: [en]) {
       title
       description
     }

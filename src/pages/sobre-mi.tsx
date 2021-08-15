@@ -40,7 +40,7 @@ const AboutMe: NextPage<Props> = ({ experience }) => {
 
       {/* Biography */}
       <div className="bg-secondary w-full py-16 text-white">
-        <div className="container px-5">
+        <div className="container px-4">
           <p className="max-w-4xl px-5 mx-auto font-mono text-xl">
             {t('aboutMe.summary.p1')}
           </p>

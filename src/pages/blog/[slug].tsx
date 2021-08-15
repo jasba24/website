@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
       .then((data) => data.data)
 
     data.posts.map((post) => {
-      paths.push({ params: { slug: `${post.slug}-${post.id}` }, locale })
+      paths.push({ params: { slug: post.slug }, locale })
     })
   }
 
@@ -51,12 +51,10 @@ export const getStaticProps: GetStaticProps<I18nProps<MyLocale>> = async (
 ) => {
   const locale = context.locale || context.defaultLocale
   const { table = {} } = await import(`i18n/${locale}`)
-  const baseSlug = (context.params?.slug as string).split('-')
-  const id = baseSlug[baseSlug.length - 1]
 
   const data = await sdk()
     .getPost({
-      id,
+      slug: context.params?.slug as string,
       locale: locale as any,
       stage: 'PUBLISHED' as any,
     })

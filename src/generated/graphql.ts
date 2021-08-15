@@ -53,16 +53,10 @@ export type Asset = Node & {
   id: Scalars['ID'];
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
-  /** User that created this document */
-  createdBy?: Maybe<User>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
-  /** User that last updated this document */
-  updatedBy?: Maybe<User>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
-  /** User that last published this document */
-  publishedBy?: Maybe<User>;
   /** The file handle */
   handle: Scalars['String'];
   /** The file name */
@@ -75,7 +69,12 @@ export type Asset = Node & {
   size?: Maybe<Scalars['Float']>;
   /** The mime type of the file */
   mimeType?: Maybe<Scalars['String']>;
-  imageSeo: Array<Seo>;
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
   coverPost: Array<Post>;
   coverPortfolio: Array<Portfolio>;
   /** List of Asset versions */
@@ -107,20 +106,8 @@ export type AssetCreatedAtArgs = {
 
 
 /** Asset system model */
-export type AssetCreatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
-};
-
-
-/** Asset system model */
 export type AssetUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
-};
-
-
-/** Asset system model */
-export type AssetUpdatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
 };
 
 
@@ -131,20 +118,19 @@ export type AssetPublishedAtArgs = {
 
 
 /** Asset system model */
-export type AssetPublishedByArgs = {
+export type AssetCreatedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
 
 /** Asset system model */
-export type AssetImageSeoArgs = {
-  where?: Maybe<SeoWhereInput>;
-  orderBy?: Maybe<SeoOrderByInput>;
-  skip?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+export type AssetUpdatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+/** Asset system model */
+export type AssetPublishedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
@@ -214,7 +200,6 @@ export type AssetCreateInput = {
   width?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['Float']>;
   mimeType?: Maybe<Scalars['String']>;
-  imageSeo?: Maybe<SeoCreateManyInlineInput>;
   coverPost?: Maybe<PostCreateManyInlineInput>;
   coverPortfolio?: Maybe<PortfolioCreateManyInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
@@ -310,7 +295,6 @@ export type AssetManyWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -326,7 +310,6 @@ export type AssetManyWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -342,10 +325,9 @@ export type AssetManyWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
   publishedBy?: Maybe<UserWhereInput>;
-  imageSeo_every?: Maybe<SeoWhereInput>;
-  imageSeo_some?: Maybe<SeoWhereInput>;
-  imageSeo_none?: Maybe<SeoWhereInput>;
   coverPost_every?: Maybe<PostWhereInput>;
   coverPost_some?: Maybe<PostWhereInput>;
   coverPost_none?: Maybe<PostWhereInput>;
@@ -392,7 +374,6 @@ export type AssetUpdateInput = {
   width?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['Float']>;
   mimeType?: Maybe<Scalars['String']>;
-  imageSeo?: Maybe<SeoUpdateManyInlineInput>;
   coverPost?: Maybe<PostUpdateManyInlineInput>;
   coverPortfolio?: Maybe<PortfolioUpdateManyInlineInput>;
   /** Manage document localizations */
@@ -561,7 +542,6 @@ export type AssetWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -577,7 +557,6 @@ export type AssetWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -593,7 +572,6 @@ export type AssetWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
   handle?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   handle_not?: Maybe<Scalars['String']>;
@@ -696,9 +674,9 @@ export type AssetWhereInput = {
   mimeType_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   mimeType_not_ends_with?: Maybe<Scalars['String']>;
-  imageSeo_every?: Maybe<SeoWhereInput>;
-  imageSeo_some?: Maybe<SeoWhereInput>;
-  imageSeo_none?: Maybe<SeoWhereInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
   coverPost_every?: Maybe<PostWhereInput>;
   coverPost_some?: Maybe<PostWhereInput>;
   coverPost_none?: Maybe<PostWhereInput>;
@@ -839,8 +817,8 @@ export type ImageTransformationInput = {
 
 /** Locale system enumeration */
 export enum Locale {
-  /** System locale */
   Es = 'es',
+  /** System locale */
   En = 'en'
 }
 
@@ -910,6 +888,46 @@ export type Mutation = {
    * @deprecated Please use the new paginated many mutation (unpublishManyAssetsConnection)
    */
   unpublishManyAssets: BatchPayload;
+  /** Create one seo */
+  createSeo?: Maybe<Seo>;
+  /** Update one seo */
+  updateSeo?: Maybe<Seo>;
+  /** Delete one seo from _all_ existing stages. Returns deleted document. */
+  deleteSeo?: Maybe<Seo>;
+  /** Upsert one seo */
+  upsertSeo?: Maybe<Seo>;
+  /** Publish one seo */
+  publishSeo?: Maybe<Seo>;
+  /** Unpublish one seo from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishSeo?: Maybe<Seo>;
+  /** Update many Seo documents */
+  updateManySeosConnection: SeoConnection;
+  /** Delete many Seo documents, return deleted documents */
+  deleteManySeosConnection: SeoConnection;
+  /** Publish many Seo documents */
+  publishManySeosConnection: SeoConnection;
+  /** Find many Seo documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManySeosConnection: SeoConnection;
+  /**
+   * Update many seos
+   * @deprecated Please use the new paginated many mutation (updateManySeosConnection)
+   */
+  updateManySeos: BatchPayload;
+  /**
+   * Delete many Seo documents
+   * @deprecated Please use the new paginated many mutation (deleteManySeosConnection)
+   */
+  deleteManySeos: BatchPayload;
+  /**
+   * Publish many Seo documents
+   * @deprecated Please use the new paginated many mutation (publishManySeosConnection)
+   */
+  publishManySeos: BatchPayload;
+  /**
+   * Unpublish many Seo documents
+   * @deprecated Please use the new paginated many mutation (unpublishManySeosConnection)
+   */
+  unpublishManySeos: BatchPayload;
   /** Create one portfolio */
   createPortfolio?: Maybe<Portfolio>;
   /** Update one portfolio */
@@ -990,46 +1008,46 @@ export type Mutation = {
    * @deprecated Please use the new paginated many mutation (unpublishManyPostsConnection)
    */
   unpublishManyPosts: BatchPayload;
-  /** Create one seo */
-  createSeo?: Maybe<Seo>;
-  /** Update one seo */
-  updateSeo?: Maybe<Seo>;
-  /** Delete one seo from _all_ existing stages. Returns deleted document. */
-  deleteSeo?: Maybe<Seo>;
-  /** Upsert one seo */
-  upsertSeo?: Maybe<Seo>;
-  /** Publish one seo */
-  publishSeo?: Maybe<Seo>;
-  /** Unpublish one seo from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
-  unpublishSeo?: Maybe<Seo>;
-  /** Update many Seo documents */
-  updateManySeosConnection: SeoConnection;
-  /** Delete many Seo documents, return deleted documents */
-  deleteManySeosConnection: SeoConnection;
-  /** Publish many Seo documents */
-  publishManySeosConnection: SeoConnection;
-  /** Find many Seo documents that match criteria in specified stage and unpublish from target stages */
-  unpublishManySeosConnection: SeoConnection;
+  /** Create one tag */
+  createTag?: Maybe<Tag>;
+  /** Update one tag */
+  updateTag?: Maybe<Tag>;
+  /** Delete one tag from _all_ existing stages. Returns deleted document. */
+  deleteTag?: Maybe<Tag>;
+  /** Upsert one tag */
+  upsertTag?: Maybe<Tag>;
+  /** Publish one tag */
+  publishTag?: Maybe<Tag>;
+  /** Unpublish one tag from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishTag?: Maybe<Tag>;
+  /** Update many Tag documents */
+  updateManyTagsConnection: TagConnection;
+  /** Delete many Tag documents, return deleted documents */
+  deleteManyTagsConnection: TagConnection;
+  /** Publish many Tag documents */
+  publishManyTagsConnection: TagConnection;
+  /** Find many Tag documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyTagsConnection: TagConnection;
   /**
-   * Update many seos
-   * @deprecated Please use the new paginated many mutation (updateManySeosConnection)
+   * Update many tags
+   * @deprecated Please use the new paginated many mutation (updateManyTagsConnection)
    */
-  updateManySeos: BatchPayload;
+  updateManyTags: BatchPayload;
   /**
-   * Delete many Seo documents
-   * @deprecated Please use the new paginated many mutation (deleteManySeosConnection)
+   * Delete many Tag documents
+   * @deprecated Please use the new paginated many mutation (deleteManyTagsConnection)
    */
-  deleteManySeos: BatchPayload;
+  deleteManyTags: BatchPayload;
   /**
-   * Publish many Seo documents
-   * @deprecated Please use the new paginated many mutation (publishManySeosConnection)
+   * Publish many Tag documents
+   * @deprecated Please use the new paginated many mutation (publishManyTagsConnection)
    */
-  publishManySeos: BatchPayload;
+  publishManyTags: BatchPayload;
   /**
-   * Unpublish many Seo documents
-   * @deprecated Please use the new paginated many mutation (unpublishManySeosConnection)
+   * Unpublish many Tag documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyTagsConnection)
    */
-  unpublishManySeos: BatchPayload;
+  unpublishManyTags: BatchPayload;
 };
 
 
@@ -1144,6 +1162,123 @@ export type MutationPublishManyAssetsArgs = {
 
 export type MutationUnpublishManyAssetsArgs = {
   where?: Maybe<AssetManyWhereInput>;
+  from?: Array<Stage>;
+  locales?: Maybe<Array<Locale>>;
+  unpublishBase?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationCreateSeoArgs = {
+  data: SeoCreateInput;
+};
+
+
+export type MutationUpdateSeoArgs = {
+  where: SeoWhereUniqueInput;
+  data: SeoUpdateInput;
+};
+
+
+export type MutationDeleteSeoArgs = {
+  where: SeoWhereUniqueInput;
+};
+
+
+export type MutationUpsertSeoArgs = {
+  where: SeoWhereUniqueInput;
+  upsert: SeoUpsertInput;
+};
+
+
+export type MutationPublishSeoArgs = {
+  where: SeoWhereUniqueInput;
+  locales?: Maybe<Array<Locale>>;
+  publishBase?: Maybe<Scalars['Boolean']>;
+  withDefaultLocale?: Maybe<Scalars['Boolean']>;
+  to?: Array<Stage>;
+};
+
+
+export type MutationUnpublishSeoArgs = {
+  where: SeoWhereUniqueInput;
+  from?: Array<Stage>;
+  locales?: Maybe<Array<Locale>>;
+  unpublishBase?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationUpdateManySeosConnectionArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  data: SeoUpdateManyInput;
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['ID']>;
+  after?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationDeleteManySeosConnectionArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['ID']>;
+  after?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationPublishManySeosConnectionArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  from?: Maybe<Stage>;
+  to?: Array<Stage>;
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['ID']>;
+  after?: Maybe<Scalars['ID']>;
+  locales?: Maybe<Array<Locale>>;
+  publishBase?: Maybe<Scalars['Boolean']>;
+  withDefaultLocale?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationUnpublishManySeosConnectionArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  stage?: Maybe<Stage>;
+  from?: Array<Stage>;
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['ID']>;
+  after?: Maybe<Scalars['ID']>;
+  locales?: Maybe<Array<Locale>>;
+  unpublishBase?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationUpdateManySeosArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  data: SeoUpdateManyInput;
+};
+
+
+export type MutationDeleteManySeosArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+};
+
+
+export type MutationPublishManySeosArgs = {
+  where?: Maybe<SeoManyWhereInput>;
+  to?: Array<Stage>;
+  locales?: Maybe<Array<Locale>>;
+  publishBase?: Maybe<Scalars['Boolean']>;
+  withDefaultLocale?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationUnpublishManySeosArgs = {
+  where?: Maybe<SeoManyWhereInput>;
   from?: Array<Stage>;
   locales?: Maybe<Array<Locale>>;
   unpublishBase?: Maybe<Scalars['Boolean']>;
@@ -1384,30 +1519,30 @@ export type MutationUnpublishManyPostsArgs = {
 };
 
 
-export type MutationCreateSeoArgs = {
-  data: SeoCreateInput;
+export type MutationCreateTagArgs = {
+  data: TagCreateInput;
 };
 
 
-export type MutationUpdateSeoArgs = {
-  where: SeoWhereUniqueInput;
-  data: SeoUpdateInput;
+export type MutationUpdateTagArgs = {
+  where: TagWhereUniqueInput;
+  data: TagUpdateInput;
 };
 
 
-export type MutationDeleteSeoArgs = {
-  where: SeoWhereUniqueInput;
+export type MutationDeleteTagArgs = {
+  where: TagWhereUniqueInput;
 };
 
 
-export type MutationUpsertSeoArgs = {
-  where: SeoWhereUniqueInput;
-  upsert: SeoUpsertInput;
+export type MutationUpsertTagArgs = {
+  where: TagWhereUniqueInput;
+  upsert: TagUpsertInput;
 };
 
 
-export type MutationPublishSeoArgs = {
-  where: SeoWhereUniqueInput;
+export type MutationPublishTagArgs = {
+  where: TagWhereUniqueInput;
   locales?: Maybe<Array<Locale>>;
   publishBase?: Maybe<Scalars['Boolean']>;
   withDefaultLocale?: Maybe<Scalars['Boolean']>;
@@ -1415,17 +1550,17 @@ export type MutationPublishSeoArgs = {
 };
 
 
-export type MutationUnpublishSeoArgs = {
-  where: SeoWhereUniqueInput;
+export type MutationUnpublishTagArgs = {
+  where: TagWhereUniqueInput;
   from?: Array<Stage>;
   locales?: Maybe<Array<Locale>>;
   unpublishBase?: Maybe<Scalars['Boolean']>;
 };
 
 
-export type MutationUpdateManySeosConnectionArgs = {
-  where?: Maybe<SeoManyWhereInput>;
-  data: SeoUpdateManyInput;
+export type MutationUpdateManyTagsConnectionArgs = {
+  where?: Maybe<TagManyWhereInput>;
+  data: TagUpdateManyInput;
   skip?: Maybe<Scalars['Int']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
@@ -1434,8 +1569,8 @@ export type MutationUpdateManySeosConnectionArgs = {
 };
 
 
-export type MutationDeleteManySeosConnectionArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationDeleteManyTagsConnectionArgs = {
+  where?: Maybe<TagManyWhereInput>;
   skip?: Maybe<Scalars['Int']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
@@ -1444,8 +1579,8 @@ export type MutationDeleteManySeosConnectionArgs = {
 };
 
 
-export type MutationPublishManySeosConnectionArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationPublishManyTagsConnectionArgs = {
+  where?: Maybe<TagManyWhereInput>;
   from?: Maybe<Stage>;
   to?: Array<Stage>;
   skip?: Maybe<Scalars['Int']>;
@@ -1459,8 +1594,8 @@ export type MutationPublishManySeosConnectionArgs = {
 };
 
 
-export type MutationUnpublishManySeosConnectionArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationUnpublishManyTagsConnectionArgs = {
+  where?: Maybe<TagManyWhereInput>;
   stage?: Maybe<Stage>;
   from?: Array<Stage>;
   skip?: Maybe<Scalars['Int']>;
@@ -1473,19 +1608,19 @@ export type MutationUnpublishManySeosConnectionArgs = {
 };
 
 
-export type MutationUpdateManySeosArgs = {
-  where?: Maybe<SeoManyWhereInput>;
-  data: SeoUpdateManyInput;
+export type MutationUpdateManyTagsArgs = {
+  where?: Maybe<TagManyWhereInput>;
+  data: TagUpdateManyInput;
 };
 
 
-export type MutationDeleteManySeosArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationDeleteManyTagsArgs = {
+  where?: Maybe<TagManyWhereInput>;
 };
 
 
-export type MutationPublishManySeosArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationPublishManyTagsArgs = {
+  where?: Maybe<TagManyWhereInput>;
   to?: Array<Stage>;
   locales?: Maybe<Array<Locale>>;
   publishBase?: Maybe<Scalars['Boolean']>;
@@ -1493,8 +1628,8 @@ export type MutationPublishManySeosArgs = {
 };
 
 
-export type MutationUnpublishManySeosArgs = {
-  where?: Maybe<SeoManyWhereInput>;
+export type MutationUnpublishManyTagsArgs = {
+  where?: Maybe<TagManyWhereInput>;
   from?: Array<Stage>;
   locales?: Maybe<Array<Locale>>;
   unpublishBase?: Maybe<Scalars['Boolean']>;
@@ -1537,23 +1672,23 @@ export type Portfolio = Node & {
   id: Scalars['ID'];
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
-  /** User that created this document */
-  createdBy?: Maybe<User>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
-  /** User that last updated this document */
-  updatedBy?: Maybe<User>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
-  /** User that last published this document */
-  publishedBy?: Maybe<User>;
   title: Scalars['String'];
   slug: Scalars['String'];
-  cover: Asset;
   industry: Scalars['String'];
   technologies: Array<Scalars['String']>;
   project_url: Scalars['String'];
   body: Scalars['String'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  cover: Asset;
   seo?: Maybe<Seo>;
   /** List of Portfolio versions */
   history: Array<Version>;
@@ -1578,23 +1713,23 @@ export type PortfolioCreatedAtArgs = {
 };
 
 
-export type PortfolioCreatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
-};
-
-
 export type PortfolioUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
 
 
-export type PortfolioUpdatedByArgs = {
+export type PortfolioPublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type PortfolioCreatedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
 
-export type PortfolioPublishedAtArgs = {
-  variation?: SystemDateTimeFieldVariation;
+export type PortfolioUpdatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
 };
 
 
@@ -1639,17 +1774,16 @@ export type PortfolioConnection = {
 export type PortfolioCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title: Scalars['String'];
-  /** slug input for default locale (es) */
   slug: Scalars['String'];
-  cover: AssetCreateOneInlineInput;
-  /** industry input for default locale (es) */
+  /** industry input for default locale (en) */
   industry: Scalars['String'];
   technologies: Array<Scalars['String']>;
   project_url: Scalars['String'];
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body: Scalars['String'];
+  cover: AssetCreateOneInlineInput;
   seo?: Maybe<SeoCreateOneInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: Maybe<PortfolioCreateLocalizationsInput>;
@@ -1659,7 +1793,6 @@ export type PortfolioCreateLocalizationDataInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   title: Scalars['String'];
-  slug: Scalars['String'];
   industry: Scalars['String'];
   body: Scalars['String'];
 };
@@ -1742,7 +1875,6 @@ export type PortfolioManyWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -1758,7 +1890,6 @@ export type PortfolioManyWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -1774,8 +1905,25 @@ export type PortfolioManyWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
-  cover?: Maybe<AssetWhereInput>;
+  slug?: Maybe<Scalars['String']>;
+  /** All values that are not equal to given value. */
+  slug_not?: Maybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: Maybe<Array<Scalars['String']>>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: Maybe<Array<Scalars['String']>>;
+  /** All values containing the given string. */
+  slug_contains?: Maybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: Maybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: Maybe<Scalars['String']>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: Maybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: Maybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: Maybe<Scalars['String']>;
   /** Matches if the field array contains *all* items provided to the filter and order does match */
   technologies?: Maybe<Array<Scalars['String']>>;
   /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
@@ -1805,6 +1953,10 @@ export type PortfolioManyWhereInput = {
   project_url_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   project_url_not_ends_with?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
+  cover?: Maybe<AssetWhereInput>;
   seo?: Maybe<SeoWhereInput>;
 };
 
@@ -1832,17 +1984,16 @@ export enum PortfolioOrderByInput {
 }
 
 export type PortfolioUpdateInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
-  /** slug input for default locale (es) */
   slug?: Maybe<Scalars['String']>;
-  cover?: Maybe<AssetUpdateOneInlineInput>;
-  /** industry input for default locale (es) */
+  /** industry input for default locale (en) */
   industry?: Maybe<Scalars['String']>;
   technologies?: Maybe<Array<Scalars['String']>>;
   project_url?: Maybe<Scalars['String']>;
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body?: Maybe<Scalars['String']>;
+  cover?: Maybe<AssetUpdateOneInlineInput>;
   seo?: Maybe<SeoUpdateOneInlineInput>;
   /** Manage document localizations */
   localizations?: Maybe<PortfolioUpdateLocalizationsInput>;
@@ -1850,7 +2001,6 @@ export type PortfolioUpdateInput = {
 
 export type PortfolioUpdateLocalizationDataInput = {
   title?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
   industry?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
 };
@@ -1888,13 +2038,13 @@ export type PortfolioUpdateManyInlineInput = {
 };
 
 export type PortfolioUpdateManyInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
-  /** industry input for default locale (es) */
+  /** industry input for default locale (en) */
   industry?: Maybe<Scalars['String']>;
   technologies?: Maybe<Array<Scalars['String']>>;
   project_url?: Maybe<Scalars['String']>;
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body?: Maybe<Scalars['String']>;
   /** Optional updates to localizations */
   localizations?: Maybe<PortfolioUpdateManyLocalizationsInput>;
@@ -2009,7 +2159,6 @@ export type PortfolioWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2025,7 +2174,6 @@ export type PortfolioWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2041,7 +2189,6 @@ export type PortfolioWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
   title?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   title_not?: Maybe<Scalars['String']>;
@@ -2080,7 +2227,6 @@ export type PortfolioWhereInput = {
   slug_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   slug_not_ends_with?: Maybe<Scalars['String']>;
-  cover?: Maybe<AssetWhereInput>;
   industry?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   industry_not?: Maybe<Scalars['String']>;
@@ -2148,12 +2294,17 @@ export type PortfolioWhereInput = {
   body_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   body_not_ends_with?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
+  cover?: Maybe<AssetWhereInput>;
   seo?: Maybe<SeoWhereInput>;
 };
 
 /** References Portfolio record uniquely */
 export type PortfolioWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
+  slug?: Maybe<Scalars['String']>;
 };
 
 export type Post = Node & {
@@ -2170,21 +2321,22 @@ export type Post = Node & {
   id: Scalars['ID'];
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
-  /** User that created this document */
-  createdBy?: Maybe<User>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
-  /** User that last updated this document */
-  updatedBy?: Maybe<User>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
-  /** User that last published this document */
-  publishedBy?: Maybe<User>;
   title: Scalars['String'];
   slug: Scalars['String'];
   published: Scalars['Date'];
-  cover: Asset;
   body: Scalars['String'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  cover: Asset;
+  tags: Array<Tag>;
   seo?: Maybe<Seo>;
   /** List of Post versions */
   history: Array<Version>;
@@ -2209,23 +2361,23 @@ export type PostCreatedAtArgs = {
 };
 
 
-export type PostCreatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
-};
-
-
 export type PostUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
 
 
-export type PostUpdatedByArgs = {
+export type PostPublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type PostCreatedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
 
-export type PostPublishedAtArgs = {
-  variation?: SystemDateTimeFieldVariation;
+export type PostUpdatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
 };
 
 
@@ -2235,6 +2387,18 @@ export type PostPublishedByArgs = {
 
 
 export type PostCoverArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type PostTagsArgs = {
+  where?: Maybe<TagWhereInput>;
+  orderBy?: Maybe<TagOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
   locales?: Maybe<Array<Locale>>;
 };
 
@@ -2270,14 +2434,14 @@ export type PostConnection = {
 export type PostCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title: Scalars['String'];
-  /** slug input for default locale (es) */
   slug: Scalars['String'];
   published: Scalars['Date'];
-  cover: AssetCreateOneInlineInput;
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body: Scalars['String'];
+  cover: AssetCreateOneInlineInput;
+  tags?: Maybe<TagCreateManyInlineInput>;
   seo?: Maybe<SeoCreateOneInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: Maybe<PostCreateLocalizationsInput>;
@@ -2287,7 +2451,6 @@ export type PostCreateLocalizationDataInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   title: Scalars['String'];
-  slug: Scalars['String'];
   body: Scalars['String'];
 };
 
@@ -2369,7 +2532,6 @@ export type PostManyWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2385,7 +2547,6 @@ export type PostManyWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2401,7 +2562,25 @@ export type PostManyWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
+  slug?: Maybe<Scalars['String']>;
+  /** All values that are not equal to given value. */
+  slug_not?: Maybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: Maybe<Array<Scalars['String']>>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: Maybe<Array<Scalars['String']>>;
+  /** All values containing the given string. */
+  slug_contains?: Maybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: Maybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: Maybe<Scalars['String']>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: Maybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: Maybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: Maybe<Scalars['String']>;
   published?: Maybe<Scalars['Date']>;
   /** All values that are not equal to given value. */
   published_not?: Maybe<Scalars['Date']>;
@@ -2417,7 +2596,13 @@ export type PostManyWhereInput = {
   published_gt?: Maybe<Scalars['Date']>;
   /** All values greater than or equal the given value. */
   published_gte?: Maybe<Scalars['Date']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
   cover?: Maybe<AssetWhereInput>;
+  tags_every?: Maybe<TagWhereInput>;
+  tags_some?: Maybe<TagWhereInput>;
+  tags_none?: Maybe<TagWhereInput>;
   seo?: Maybe<SeoWhereInput>;
 };
 
@@ -2441,14 +2626,14 @@ export enum PostOrderByInput {
 }
 
 export type PostUpdateInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
-  /** slug input for default locale (es) */
   slug?: Maybe<Scalars['String']>;
   published?: Maybe<Scalars['Date']>;
-  cover?: Maybe<AssetUpdateOneInlineInput>;
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body?: Maybe<Scalars['String']>;
+  cover?: Maybe<AssetUpdateOneInlineInput>;
+  tags?: Maybe<TagUpdateManyInlineInput>;
   seo?: Maybe<SeoUpdateOneInlineInput>;
   /** Manage document localizations */
   localizations?: Maybe<PostUpdateLocalizationsInput>;
@@ -2456,7 +2641,6 @@ export type PostUpdateInput = {
 
 export type PostUpdateLocalizationDataInput = {
   title?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
 };
 
@@ -2493,10 +2677,10 @@ export type PostUpdateManyInlineInput = {
 };
 
 export type PostUpdateManyInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
   published?: Maybe<Scalars['Date']>;
-  /** body input for default locale (es) */
+  /** body input for default locale (en) */
   body?: Maybe<Scalars['String']>;
   /** Optional updates to localizations */
   localizations?: Maybe<PostUpdateManyLocalizationsInput>;
@@ -2610,7 +2794,6 @@ export type PostWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2626,7 +2809,6 @@ export type PostWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -2642,7 +2824,6 @@ export type PostWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
   title?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   title_not?: Maybe<Scalars['String']>;
@@ -2696,7 +2877,6 @@ export type PostWhereInput = {
   published_gt?: Maybe<Scalars['Date']>;
   /** All values greater than or equal the given value. */
   published_gte?: Maybe<Scalars['Date']>;
-  cover?: Maybe<AssetWhereInput>;
   body?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   body_not?: Maybe<Scalars['String']>;
@@ -2716,12 +2896,20 @@ export type PostWhereInput = {
   body_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   body_not_ends_with?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
+  cover?: Maybe<AssetWhereInput>;
+  tags_every?: Maybe<TagWhereInput>;
+  tags_some?: Maybe<TagWhereInput>;
+  tags_none?: Maybe<TagWhereInput>;
   seo?: Maybe<SeoWhereInput>;
 };
 
 /** References Post record uniquely */
 export type PostWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
+  slug?: Maybe<Scalars['String']>;
 };
 
 export type PublishLocaleInput = {
@@ -2743,6 +2931,20 @@ export type Query = {
   assetsConnection: AssetConnection;
   /** Retrieve document version */
   assetVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple users */
+  users: Array<User>;
+  /** Retrieve a single user */
+  user?: Maybe<User>;
+  /** Retrieve multiple users using the Relay connection interface */
+  usersConnection: UserConnection;
+  /** Retrieve multiple seos */
+  seos: Array<Seo>;
+  /** Retrieve a single seo */
+  seo?: Maybe<Seo>;
+  /** Retrieve multiple seos using the Relay connection interface */
+  seosConnection: SeoConnection;
+  /** Retrieve document version */
+  seoVersion?: Maybe<DocumentVersion>;
   /** Retrieve multiple portfolios */
   portfolios: Array<Portfolio>;
   /** Retrieve a single portfolio */
@@ -2759,20 +2961,14 @@ export type Query = {
   postsConnection: PostConnection;
   /** Retrieve document version */
   postVersion?: Maybe<DocumentVersion>;
-  /** Retrieve multiple seos */
-  seos: Array<Seo>;
-  /** Retrieve a single seo */
-  seo?: Maybe<Seo>;
-  /** Retrieve multiple seos using the Relay connection interface */
-  seosConnection: SeoConnection;
+  /** Retrieve multiple tags */
+  tags: Array<Tag>;
+  /** Retrieve a single tag */
+  tag?: Maybe<Tag>;
+  /** Retrieve multiple tags using the Relay connection interface */
+  tagsConnection: TagConnection;
   /** Retrieve document version */
-  seoVersion?: Maybe<DocumentVersion>;
-  /** Retrieve multiple users */
-  users: Array<User>;
-  /** Retrieve a single user */
-  user?: Maybe<User>;
-  /** Retrieve multiple users using the Relay connection interface */
-  usersConnection: UserConnection;
+  tagVersion?: Maybe<DocumentVersion>;
 };
 
 
@@ -2817,6 +3013,77 @@ export type QueryAssetsConnectionArgs = {
 
 
 export type QueryAssetVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryUsersArgs = {
+  where?: Maybe<UserWhereInput>;
+  orderBy?: Maybe<UserOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QueryUserArgs = {
+  where: UserWhereUniqueInput;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QueryUsersConnectionArgs = {
+  where?: Maybe<UserWhereInput>;
+  orderBy?: Maybe<UserOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QuerySeosArgs = {
+  where?: Maybe<SeoWhereInput>;
+  orderBy?: Maybe<SeoOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QuerySeoArgs = {
+  where: SeoWhereUniqueInput;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QuerySeosConnectionArgs = {
+  where?: Maybe<SeoWhereInput>;
+  orderBy?: Maybe<SeoOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stage?: Stage;
+  locales?: Array<Locale>;
+};
+
+
+export type QuerySeoVersionArgs = {
   where: VersionWhereInput;
 };
 
@@ -2897,9 +3164,9 @@ export type QueryPostVersionArgs = {
 };
 
 
-export type QuerySeosArgs = {
-  where?: Maybe<SeoWhereInput>;
-  orderBy?: Maybe<SeoOrderByInput>;
+export type QueryTagsArgs = {
+  where?: Maybe<TagWhereInput>;
+  orderBy?: Maybe<TagOrderByInput>;
   skip?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -2910,16 +3177,16 @@ export type QuerySeosArgs = {
 };
 
 
-export type QuerySeoArgs = {
-  where: SeoWhereUniqueInput;
+export type QueryTagArgs = {
+  where: TagWhereUniqueInput;
   stage?: Stage;
   locales?: Array<Locale>;
 };
 
 
-export type QuerySeosConnectionArgs = {
-  where?: Maybe<SeoWhereInput>;
-  orderBy?: Maybe<SeoOrderByInput>;
+export type QueryTagsConnectionArgs = {
+  where?: Maybe<TagWhereInput>;
+  orderBy?: Maybe<TagOrderByInput>;
   skip?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -2930,41 +3197,8 @@ export type QuerySeosConnectionArgs = {
 };
 
 
-export type QuerySeoVersionArgs = {
+export type QueryTagVersionArgs = {
   where: VersionWhereInput;
-};
-
-
-export type QueryUsersArgs = {
-  where?: Maybe<UserWhereInput>;
-  orderBy?: Maybe<UserOrderByInput>;
-  skip?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  stage?: Stage;
-  locales?: Array<Locale>;
-};
-
-
-export type QueryUserArgs = {
-  where: UserWhereUniqueInput;
-  stage?: Stage;
-  locales?: Array<Locale>;
-};
-
-
-export type QueryUsersConnectionArgs = {
-  where?: Maybe<UserWhereInput>;
-  orderBy?: Maybe<UserOrderByInput>;
-  skip?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  stage?: Stage;
-  locales?: Array<Locale>;
 };
 
 /** Representing a RGBA color value: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()_and_rgba() */
@@ -3014,19 +3248,18 @@ export type Seo = Node & {
   id: Scalars['ID'];
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
-  /** User that created this document */
-  createdBy?: Maybe<User>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
-  /** User that last updated this document */
-  updatedBy?: Maybe<User>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
-  /** User that last published this document */
-  publishedBy?: Maybe<User>;
   title: Scalars['String'];
   description: Scalars['String'];
-  image?: Maybe<Asset>;
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
   post?: Maybe<Post>;
   portfolio?: Maybe<Portfolio>;
   /** List of Seo versions */
@@ -3052,18 +3285,8 @@ export type SeoCreatedAtArgs = {
 };
 
 
-export type SeoCreatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
-};
-
-
 export type SeoUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
-};
-
-
-export type SeoUpdatedByArgs = {
-  locales?: Maybe<Array<Locale>>;
 };
 
 
@@ -3072,12 +3295,17 @@ export type SeoPublishedAtArgs = {
 };
 
 
-export type SeoPublishedByArgs = {
+export type SeoCreatedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
 
-export type SeoImageArgs = {
+export type SeoUpdatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type SeoPublishedByArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
@@ -3118,11 +3346,10 @@ export type SeoConnection = {
 export type SeoCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title: Scalars['String'];
-  /** description input for default locale (es) */
+  /** description input for default locale (en) */
   description: Scalars['String'];
-  image?: Maybe<AssetCreateOneInlineInput>;
   post?: Maybe<PostCreateOneInlineInput>;
   portfolio?: Maybe<PortfolioCreateOneInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
@@ -3214,7 +3441,6 @@ export type SeoManyWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -3230,7 +3456,6 @@ export type SeoManyWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -3246,8 +3471,9 @@ export type SeoManyWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
   publishedBy?: Maybe<UserWhereInput>;
-  image?: Maybe<AssetWhereInput>;
   post?: Maybe<PostWhereInput>;
   portfolio?: Maybe<PortfolioWhereInput>;
 };
@@ -3268,11 +3494,10 @@ export enum SeoOrderByInput {
 }
 
 export type SeoUpdateInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
-  /** description input for default locale (es) */
+  /** description input for default locale (en) */
   description?: Maybe<Scalars['String']>;
-  image?: Maybe<AssetUpdateOneInlineInput>;
   post?: Maybe<PostUpdateOneInlineInput>;
   portfolio?: Maybe<PortfolioUpdateOneInlineInput>;
   /** Manage document localizations */
@@ -3317,9 +3542,9 @@ export type SeoUpdateManyInlineInput = {
 };
 
 export type SeoUpdateManyInput = {
-  /** title input for default locale (es) */
+  /** title input for default locale (en) */
   title?: Maybe<Scalars['String']>;
-  /** description input for default locale (es) */
+  /** description input for default locale (en) */
   description?: Maybe<Scalars['String']>;
   /** Optional updates to localizations */
   localizations?: Maybe<SeoUpdateManyLocalizationsInput>;
@@ -3433,7 +3658,6 @@ export type SeoWhereInput = {
   createdAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   updatedAt_not?: Maybe<Scalars['DateTime']>;
@@ -3449,7 +3673,6 @@ export type SeoWhereInput = {
   updatedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedBy?: Maybe<UserWhereInput>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
   publishedAt_not?: Maybe<Scalars['DateTime']>;
@@ -3465,7 +3688,6 @@ export type SeoWhereInput = {
   publishedAt_gt?: Maybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
   publishedAt_gte?: Maybe<Scalars['DateTime']>;
-  publishedBy?: Maybe<UserWhereInput>;
   title?: Maybe<Scalars['String']>;
   /** All values that are not equal to given value. */
   title_not?: Maybe<Scalars['String']>;
@@ -3504,7 +3726,9 @@ export type SeoWhereInput = {
   description_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   description_not_ends_with?: Maybe<Scalars['String']>;
-  image?: Maybe<AssetWhereInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
   post?: Maybe<PostWhereInput>;
   portfolio?: Maybe<PortfolioWhereInput>;
 };
@@ -3527,6 +3751,524 @@ export enum SystemDateTimeFieldVariation {
   Localization = 'LOCALIZATION',
   Combined = 'COMBINED'
 }
+
+export type Tag = Node & {
+  __typename?: 'Tag';
+  /** System stage field */
+  stage: Stage;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Tag>;
+  /** Get the document in other stages */
+  documentInStages: Array<Tag>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  slug: Scalars['String'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  posts: Array<Post>;
+  /** List of Tag versions */
+  history: Array<Version>;
+};
+
+
+export type TagLocalizationsArgs = {
+  locales?: Array<Locale>;
+  includeCurrent?: Scalars['Boolean'];
+};
+
+
+export type TagDocumentInStagesArgs = {
+  stages?: Array<Stage>;
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+};
+
+
+export type TagCreatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type TagUpdatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type TagPublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type TagCreatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type TagUpdatedByArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type TagPublishedByArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type TagPostsArgs = {
+  where?: Maybe<PostWhereInput>;
+  orderBy?: Maybe<PostOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  locales?: Maybe<Array<Locale>>;
+};
+
+
+export type TagHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: Maybe<Stage>;
+};
+
+export type TagConnectInput = {
+  /** Document to connect */
+  where: TagWhereUniqueInput;
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: Maybe<ConnectPositionInput>;
+};
+
+/** A connection to a list of items. */
+export type TagConnection = {
+  __typename?: 'TagConnection';
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** A list of edges. */
+  edges: Array<TagEdge>;
+  aggregate: Aggregate;
+};
+
+export type TagCreateInput = {
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  /** name input for default locale (en) */
+  name: Scalars['String'];
+  slug: Scalars['String'];
+  posts?: Maybe<PostCreateManyInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: Maybe<TagCreateLocalizationsInput>;
+};
+
+export type TagCreateLocalizationDataInput = {
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+};
+
+export type TagCreateLocalizationInput = {
+  /** Localization input */
+  data: TagCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TagCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: Maybe<Array<TagCreateLocalizationInput>>;
+};
+
+export type TagCreateManyInlineInput = {
+  /** Create and connect multiple existing Tag documents */
+  create?: Maybe<Array<TagCreateInput>>;
+  /** Connect multiple existing Tag documents */
+  connect?: Maybe<Array<TagWhereUniqueInput>>;
+};
+
+export type TagCreateOneInlineInput = {
+  /** Create and connect one Tag document */
+  create?: Maybe<TagCreateInput>;
+  /** Connect one existing Tag document */
+  connect?: Maybe<TagWhereUniqueInput>;
+};
+
+/** An edge in a connection. */
+export type TagEdge = {
+  __typename?: 'TagEdge';
+  /** The item at the end of the edge. */
+  node: Tag;
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+};
+
+/** Identifies documents */
+export type TagManyWhereInput = {
+  /** Contains search across all appropriate fields. */
+  _search?: Maybe<Scalars['String']>;
+  /** Logical AND on all given filters. */
+  AND?: Maybe<Array<TagWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: Maybe<Array<TagWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Maybe<Array<TagWhereInput>>;
+  id?: Maybe<Scalars['ID']>;
+  /** All values that are not equal to given value. */
+  id_not?: Maybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  /** All values that are not contained in given list. */
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  /** All values containing the given string. */
+  id_contains?: Maybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: Maybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: Maybe<Scalars['ID']>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: Maybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: Maybe<Scalars['DateTime']>;
+  slug?: Maybe<Scalars['String']>;
+  /** All values that are not equal to given value. */
+  slug_not?: Maybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: Maybe<Array<Scalars['String']>>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: Maybe<Array<Scalars['String']>>;
+  /** All values containing the given string. */
+  slug_contains?: Maybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: Maybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: Maybe<Scalars['String']>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: Maybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: Maybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
+};
+
+export enum TagOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC'
+}
+
+export type TagUpdateInput = {
+  /** name input for default locale (en) */
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  posts?: Maybe<PostUpdateManyInlineInput>;
+  /** Manage document localizations */
+  localizations?: Maybe<TagUpdateLocalizationsInput>;
+};
+
+export type TagUpdateLocalizationDataInput = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagUpdateLocalizationInput = {
+  data: TagUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TagUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: Maybe<Array<TagCreateLocalizationInput>>;
+  /** Localizations to update */
+  update?: Maybe<Array<TagUpdateLocalizationInput>>;
+  upsert?: Maybe<Array<TagUpsertLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: Maybe<Array<Locale>>;
+};
+
+export type TagUpdateManyInlineInput = {
+  /** Create and connect multiple Tag documents */
+  create?: Maybe<Array<TagCreateInput>>;
+  /** Connect multiple existing Tag documents */
+  connect?: Maybe<Array<TagConnectInput>>;
+  /** Override currently-connected documents with multiple existing Tag documents */
+  set?: Maybe<Array<TagWhereUniqueInput>>;
+  /** Update multiple Tag documents */
+  update?: Maybe<Array<TagUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Tag documents */
+  upsert?: Maybe<Array<TagUpsertWithNestedWhereUniqueInput>>;
+  /** Disconnect multiple Tag documents */
+  disconnect?: Maybe<Array<TagWhereUniqueInput>>;
+  /** Delete multiple Tag documents */
+  delete?: Maybe<Array<TagWhereUniqueInput>>;
+};
+
+export type TagUpdateManyInput = {
+  /** name input for default locale (en) */
+  name?: Maybe<Scalars['String']>;
+  /** Optional updates to localizations */
+  localizations?: Maybe<TagUpdateManyLocalizationsInput>;
+};
+
+export type TagUpdateManyLocalizationDataInput = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagUpdateManyLocalizationInput = {
+  data: TagUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TagUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: Maybe<Array<TagUpdateManyLocalizationInput>>;
+};
+
+export type TagUpdateManyWithNestedWhereInput = {
+  /** Document search */
+  where: TagWhereInput;
+  /** Update many input */
+  data: TagUpdateManyInput;
+};
+
+export type TagUpdateOneInlineInput = {
+  /** Create and connect one Tag document */
+  create?: Maybe<TagCreateInput>;
+  /** Update single Tag document */
+  update?: Maybe<TagUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Tag document */
+  upsert?: Maybe<TagUpsertWithNestedWhereUniqueInput>;
+  /** Connect existing Tag document */
+  connect?: Maybe<TagWhereUniqueInput>;
+  /** Disconnect currently connected Tag document */
+  disconnect?: Maybe<Scalars['Boolean']>;
+  /** Delete currently connected Tag document */
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type TagUpdateWithNestedWhereUniqueInput = {
+  /** Unique document search */
+  where: TagWhereUniqueInput;
+  /** Document to update */
+  data: TagUpdateInput;
+};
+
+export type TagUpsertInput = {
+  /** Create document if it didn't exist */
+  create: TagCreateInput;
+  /** Update document if it exists */
+  update: TagUpdateInput;
+};
+
+export type TagUpsertLocalizationInput = {
+  update: TagUpdateLocalizationDataInput;
+  create: TagCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TagUpsertWithNestedWhereUniqueInput = {
+  /** Unique document search */
+  where: TagWhereUniqueInput;
+  /** Upsert data */
+  data: TagUpsertInput;
+};
+
+/** Identifies documents */
+export type TagWhereInput = {
+  /** Contains search across all appropriate fields. */
+  _search?: Maybe<Scalars['String']>;
+  /** Logical AND on all given filters. */
+  AND?: Maybe<Array<TagWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: Maybe<Array<TagWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Maybe<Array<TagWhereInput>>;
+  id?: Maybe<Scalars['ID']>;
+  /** All values that are not equal to given value. */
+  id_not?: Maybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  /** All values that are not contained in given list. */
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  /** All values containing the given string. */
+  id_contains?: Maybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: Maybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: Maybe<Scalars['ID']>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: Maybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: Maybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: Maybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: Maybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: Maybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  /** All values that are not equal to given value. */
+  name_not?: Maybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: Maybe<Array<Scalars['String']>>;
+  /** All values that are not contained in given list. */
+  name_not_in?: Maybe<Array<Scalars['String']>>;
+  /** All values containing the given string. */
+  name_contains?: Maybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: Maybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: Maybe<Scalars['String']>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: Maybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: Maybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  /** All values that are not equal to given value. */
+  slug_not?: Maybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: Maybe<Array<Scalars['String']>>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: Maybe<Array<Scalars['String']>>;
+  /** All values containing the given string. */
+  slug_contains?: Maybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: Maybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: Maybe<Scalars['String']>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: Maybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: Maybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<UserWhereInput>;
+  updatedBy?: Maybe<UserWhereInput>;
+  publishedBy?: Maybe<UserWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
+};
+
+/** References Tag record uniquely */
+export type TagWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+  slug?: Maybe<Scalars['String']>;
+};
 
 export type UnpublishLocaleInput = {
   /** Locales to unpublish */
@@ -3554,10 +4296,10 @@ export type User = Node & {
   name: Scalars['String'];
   /** Profile Picture url */
   picture?: Maybe<Scalars['String']>;
-  /** User Kind. Can be either MEMBER, PAT or PUBLIC */
-  kind: UserKind;
   /** Flag to determine if user is active or not */
   isActive: Scalars['Boolean'];
+  /** User Kind. Can be either MEMBER, PAT or PUBLIC */
+  kind: UserKind;
 };
 
 
@@ -3724,6 +4466,9 @@ export type UserManyWhereInput = {
   picture_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   picture_not_ends_with?: Maybe<Scalars['String']>;
+  isActive?: Maybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  isActive_not?: Maybe<Scalars['Boolean']>;
   kind?: Maybe<UserKind>;
   /** All values that are not equal to given value. */
   kind_not?: Maybe<UserKind>;
@@ -3731,9 +4476,6 @@ export type UserManyWhereInput = {
   kind_in?: Maybe<Array<UserKind>>;
   /** All values that are not contained in given list. */
   kind_not_in?: Maybe<Array<UserKind>>;
-  isActive?: Maybe<Scalars['Boolean']>;
-  /** All values that are not equal to given value. */
-  isActive_not?: Maybe<Scalars['Boolean']>;
 };
 
 export enum UserOrderByInput {
@@ -3749,10 +4491,10 @@ export enum UserOrderByInput {
   NameDesc = 'name_DESC',
   PictureAsc = 'picture_ASC',
   PictureDesc = 'picture_DESC',
-  KindAsc = 'kind_ASC',
-  KindDesc = 'kind_DESC',
   IsActiveAsc = 'isActive_ASC',
-  IsActiveDesc = 'isActive_DESC'
+  IsActiveDesc = 'isActive_DESC',
+  KindAsc = 'kind_ASC',
+  KindDesc = 'kind_DESC'
 }
 
 export type UserUpdateManyInlineInput = {
@@ -3883,6 +4625,9 @@ export type UserWhereInput = {
   picture_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   picture_not_ends_with?: Maybe<Scalars['String']>;
+  isActive?: Maybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  isActive_not?: Maybe<Scalars['Boolean']>;
   kind?: Maybe<UserKind>;
   /** All values that are not equal to given value. */
   kind_not?: Maybe<UserKind>;
@@ -3890,9 +4635,6 @@ export type UserWhereInput = {
   kind_in?: Maybe<Array<UserKind>>;
   /** All values that are not contained in given list. */
   kind_not_in?: Maybe<Array<UserKind>>;
-  isActive?: Maybe<Scalars['Boolean']>;
-  /** All values that are not equal to given value. */
-  isActive_not?: Maybe<Scalars['Boolean']>;
 };
 
 /** References User record uniquely */
@@ -4032,7 +4774,7 @@ export type GetPortfolioQueryVariables = Exact<{
 export type GetPortfolioQuery = { __typename?: 'Query', portfolio?: Maybe<{ __typename?: 'Portfolio', id: string, updatedAt: any, publishedAt?: Maybe<any>, title: string, slug: string, industry: string, technologies: Array<string>, project_url: string, body: string, localizations: Array<{ __typename?: 'Portfolio', locale: Locale, id: string, slug: string }>, cover: { __typename?: 'Asset', handle: string, height?: Maybe<number>, width?: Maybe<number> }, seo?: Maybe<{ __typename?: 'Seo', locale: Locale, title: string, description: string }> }> };
 
 export type GetPostQueryVariables = Exact<{
-  id: Scalars['ID'];
+  slug: Scalars['String'];
   stage: Stage;
   locale: Locale;
 }>;
@@ -4050,6 +4792,20 @@ export type GetSitemapDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSitemapDataQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', localizations: Array<{ __typename?: 'Post', locale: Locale, id: string, updatedAt: any, title: string, slug: string, localizations: Array<{ __typename?: 'Post', locale: Locale, id: string, slug: string }>, seo?: Maybe<{ __typename?: 'Seo', description: string }> }> }>, portfolios: Array<{ __typename?: 'Portfolio', localizations: Array<{ __typename?: 'Portfolio', locale: Locale, id: string, updatedAt: any, title: string, slug: string, localizations: Array<{ __typename?: 'Portfolio', locale: Locale, id: string, slug: string }>, seo?: Maybe<{ __typename?: 'Seo', description: string }> }> }> };
 
+export type PostsQueryVariables = Exact<{
+  offset: Scalars['Int'];
+  first: Scalars['Int'];
+  locale: Locale;
+}>;
+
+
+export type PostsQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, posts: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, title: string, slug: string, published: any, body: string, cover: { __typename?: 'Asset', handle: string, height?: Maybe<number>, width?: Maybe<number>, url: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } }> } };
+
+export type PostsCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostsCountQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
+
 
 export const GetAllPortfoliosForPortfolioPageDocument = gql`
     query getAllPortfoliosForPortfolioPage($locale: Locale!) {
@@ -4057,12 +4813,12 @@ export const GetAllPortfoliosForPortfolioPageDocument = gql`
     id
     title
     slug
-    cover(locales: [es]) {
+    cover(locales: [en]) {
       handle
       height
       width
     }
-    seo(locales: [$locale]) {
+    seo {
       description
     }
   }
@@ -4076,7 +4832,7 @@ export const GetAllPortfoliosWithSlugDocument = gql`
     updatedAt
     slug
     publishedAt
-    seo(locales: [$locale]) {
+    seo {
       title
       description
     }
@@ -4095,14 +4851,14 @@ export const GetAllPostsForBlogPageDocument = gql`
     title
     slug
     published
-    cover(locales: [$locale]) {
+    cover(locales: [en]) {
       handle
       height
       width
       url
     }
     body @include(if: $body)
-    seo(locales: [$locale]) {
+    seo {
       title
       description
     }
@@ -4117,7 +4873,7 @@ export const GetAllPostsWithSlugDocument = gql`
     updatedAt
     slug
     published
-    seo(locales: [$locale]) {
+    seo(locales: [en]) {
       title
       description
     }
@@ -4137,7 +4893,7 @@ export const GetPortfolioDocument = gql`
     publishedAt
     title
     slug
-    cover(locales: [es]) {
+    cover(locales: [en]) {
       handle
       height
       width
@@ -4146,7 +4902,7 @@ export const GetPortfolioDocument = gql`
     technologies
     project_url
     body
-    seo(locales: [$locale]) {
+    seo {
       locale
       title
       description
@@ -4155,8 +4911,8 @@ export const GetPortfolioDocument = gql`
 }
     `;
 export const GetPostDocument = gql`
-    query getPost($id: ID!, $stage: Stage!, $locale: Locale!) {
-  post(where: {id: $id}, stage: $stage, locales: [$locale]) {
+    query getPost($slug: String!, $stage: Stage!, $locale: Locale!) {
+  post(where: {slug: $slug}, stage: $stage, locales: [$locale]) {
     localizations {
       locale
       id
@@ -4167,14 +4923,14 @@ export const GetPostDocument = gql`
     title
     slug
     published
-    cover(locales: [$locale]) {
+    cover(locales: [en]) {
       handle
       height
       width
       url
     }
     body
-    seo(locales: [$locale]) {
+    seo {
       locale
       title
       description
@@ -4241,6 +4997,50 @@ export const GetSitemapDataDocument = gql`
   }
 }
     `;
+export const PostsDocument = gql`
+    query posts($offset: Int!, $first: Int!, $locale: Locale!) {
+  postsConnection(
+    orderBy: published_DESC
+    skip: $offset
+    first: $first
+    locales: [$locale]
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    posts: edges {
+      node {
+        id
+        title
+        slug
+        published
+        body
+        cover(locales: [en]) {
+          handle
+          height
+          width
+          url
+        }
+        tags {
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+}
+    `;
+export const PostsCountDocument = gql`
+    query postsCount {
+  postsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -4254,6 +5054,8 @@ const GetPortfolioDocumentString = print(GetPortfolioDocument);
 const GetPostDocumentString = print(GetPostDocument);
 const GetPostsSitemapDocumentString = print(GetPostsSitemapDocument);
 const GetSitemapDataDocumentString = print(GetSitemapDataDocument);
+const PostsDocumentString = print(PostsDocument);
+const PostsCountDocumentString = print(PostsCountDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     getAllPortfoliosForPortfolioPage(variables: GetAllPortfoliosForPortfolioPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data?: GetAllPortfoliosForPortfolioPageQuery | undefined; extensions?: any; headers: Dom.Headers; status: number; errors?: GraphQLError[] | undefined; }> {
@@ -4279,6 +5081,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getSitemapData(variables?: GetSitemapDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data?: GetSitemapDataQuery | undefined; extensions?: any; headers: Dom.Headers; status: number; errors?: GraphQLError[] | undefined; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetSitemapDataQuery>(GetSitemapDataDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSitemapData');
+    },
+    posts(variables: PostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data?: PostsQuery | undefined; extensions?: any; headers: Dom.Headers; status: number; errors?: GraphQLError[] | undefined; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<PostsQuery>(PostsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'posts');
+    },
+    postsCount(variables?: PostsCountQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data?: PostsCountQuery | undefined; extensions?: any; headers: Dom.Headers; status: number; errors?: GraphQLError[] | undefined; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<PostsCountQuery>(PostsCountDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'postsCount');
     }
   };
 }

@@ -18,10 +18,10 @@ export const BlogCard = (post: Post): JSX.Element => {
     <article className="mb-12">
       <Link
         className="group hover:no-underline focus:no-underline"
-        href={`/blog/${post.slug}-${post.id}`}
+        href={`/blog/${post.slug}`}
         locale={locale}
       >
-        <div className="flex overflow-hidden w-full rounded-lg group-hover:shadow-lg group-focus:shadow-lg duration-200 transform group-hover:-translate-y-1 group-focus:-translate-y-1">
+        <div className="group-hover:shadow-lg group-focus:shadow-lg group-hover:-translate-y-1 group-focus:-translate-y-1 flex w-full overflow-hidden duration-200 transform rounded-lg">
           <Image
             alt={post.title}
             image={post.cover as Asset}
@@ -31,7 +31,7 @@ export const BlogCard = (post: Post): JSX.Element => {
         </div>
 
         <div className="mt-6">
-          <p className="my-2 text-xs text-gray-500 dark:text-gray-400">
+          <p className="dark:text-gray-400 my-2 text-xs text-gray-500">
             {t('blog.publishedAt')}{' '}
             {formatDate(
               new Date(post.published).toISOString().slice(0, 19),
@@ -40,10 +40,10 @@ export const BlogCard = (post: Post): JSX.Element => {
             )}
           </p>
 
-          <h2 className="mb-2 text-2xl font-medium leading-tight text-gray-700 dark:text-white group-hover:underline group-focus:underline">
+          <h2 className="dark:text-white group-hover:underline group-focus:underline mb-2 text-2xl font-medium leading-tight text-gray-700">
             {post.title}
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="dark:text-gray-300 text-sm text-gray-600">
             {post.seo?.description}
           </p>
         </div>

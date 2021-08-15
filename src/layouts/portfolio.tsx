@@ -29,7 +29,7 @@ export default function PortfolioLayout({ portfolio }: Props): JSX.Element {
         title={portfolio.seo?.title}
       />
 
-      <div className="container px-5 py-16 space-y-16">
+      <div className="container px-4 py-16 space-y-16">
         <h1 className="mb-10 text-4xl text-center dark:text-white sm:text-5xl md:text-6xl">
           {portfolio.title}
         </h1>

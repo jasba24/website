@@ -1,5 +1,5 @@
-query getPost($id: ID!, $stage: Stage!, $locale: Locale!) {
-  post(where: { id: $id }, stage: $stage, locales: [$locale]) {
+query getPost($slug: String!, $stage: Stage!, $locale: Locale!) {
+  post(where: { slug: $slug }, stage: $stage, locales: [$locale]) {
     localizations {
       locale
       id
@@ -10,14 +10,14 @@ query getPost($id: ID!, $stage: Stage!, $locale: Locale!) {
     title
     slug
     published
-    cover(locales: [$locale]) {
+    cover(locales: [en]) {
       handle
       height
       width
       url
     }
     body
-    seo(locales: [$locale]) {
+    seo {
       locale
       title
       description

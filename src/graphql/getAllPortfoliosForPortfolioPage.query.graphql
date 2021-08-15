@@ -3,12 +3,12 @@ query getAllPortfoliosForPortfolioPage($locale: Locale!) {
     id
     title
     slug
-    cover(locales: [es]) {
+    cover(locales: [en]) {
       handle
       height
       width
     }
-    seo(locales: [$locale]) {
+    seo {
       description
     }
   }

@@ -29,8 +29,8 @@ export const Header = (): JSX.Element => {
       )}
       id="sticky-nav"
     >
-      <div className="hidden relative md:flex md:flex-1 md:px-8">
-        <nav className="container flex relative flex-wrap justify-end items-center">
+      <div className="md:flex md:flex-1 md:px-8 relative hidden">
+        <nav className="container relative flex flex-wrap items-center justify-end">
           <div className="relative flex-1 flex-shrink-0">
             <Link
               className="inline-flex"
@@ -38,7 +38,7 @@ export const Header = (): JSX.Element => {
               title={t('header.menu.home')}
             >
               <svg
-                className="w-8 h-8 text-primary-600 dark:text-primary"
+                className="text-primary-600 dark:text-primary w-8 h-8"
                 viewBox="0 0 1080 1080"
               >
                 <path
@@ -63,38 +63,38 @@ export const Header = (): JSX.Element => {
             </Link>
           </div>
 
-          <div className="flex items-center mr-6 ml-10 bg-transparent">
-            <div className="flex justify-center items-center">
+          <div className="flex items-center ml-10 mr-6 bg-transparent">
+            <div className="flex items-center justify-center">
               <Link
-                className="py-7 px-3 text-sm font-medium text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black transition duration-200 focus:outline-none"
+                className="text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none px-3 py-5 text-sm font-medium transition duration-200"
                 href="/sobre-mi"
                 title="Sobre Mí"
               >
                 {t('header.menu.aboutMe')}
               </Link>
               <Link
-                className="py-7 px-3 text-sm font-medium text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black transition duration-200 focus:outline-none"
+                className="text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none px-3 py-5 text-sm font-medium transition duration-200"
                 href="/github"
                 title="Open Source"
               >
                 {t('header.menu.openSource')}
               </Link>
               <Link
-                className="py-7 px-3 text-sm font-medium text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black transition duration-200 focus:outline-none"
+                className="text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none px-3 py-5 text-sm font-medium transition duration-200"
                 href="/portafolio"
                 title="Portafolio"
               >
                 {t('header.menu.portfolio')}
               </Link>
               <Link
-                className="py-7 px-3 text-sm font-medium text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black transition duration-200 focus:outline-none"
+                className="text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none px-3 py-5 text-sm font-medium transition duration-200"
                 href="/blog"
                 title="Blog"
               >
                 {t('header.menu.blog')}
               </Link>
               <Link
-                className="py-7 px-3 text-sm font-medium text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black transition duration-200 focus:outline-none"
+                className="text-primary-600 dark:text-primary dark:hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none px-3 py-5 text-sm font-medium transition duration-200"
                 href="/contacto"
                 title="Contacto"
               >

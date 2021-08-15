@@ -35,12 +35,12 @@ const PortfolioPage: NextPage<Props> = ({ portfolios }) => {
         </div>
       </section>
 
-      <div className="container px-5 mb-24 space-y-16">
+      <div className="container px-4 mb-24 space-y-16">
         {portfolios.map((portfolio) => (
           <div key={portfolio.slug}>
             <Link
               className="group hover:bg-gray-50 dark:hover:bg-secondary-700 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-secondary hover:shadow focus:outline-none md:grid-cols-2 grid items-center grid-cols-1 gap-6 pb-1 overflow-hidden transition-all duration-150 rounded-lg"
-              href={`/portafolio/${portfolio.slug}-${portfolio.id}`}
+              href={`/portafolio/${portfolio.slug}`}
               locale={locale}
             >
               <div className="group-hover:shadow-lg flex w-full overflow-hidden duration-200 transform rounded-lg">

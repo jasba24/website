@@ -5,7 +5,7 @@ query getAllPortfoliosWithSlug($locale: Locale!) {
     updatedAt
     slug
     publishedAt
-    seo(locales: [$locale]) {
+    seo {
       title
       description
     }
