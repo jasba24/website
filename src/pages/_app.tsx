@@ -74,22 +74,21 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
               url="https://danestves.com"
             />
 
-            <Layout>
-              <Component {...pageProps} />
+            <Component {...pageProps} />
 
-              <Script async src="/static/js/switch-favicon.js" />
-              <Script
-                async
-                data-api="/_hive"
-                src="/bee.js"
-                strategy="afterInteractive"
-              />
-              <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-                strategy="afterInteractive"
-              />
-              <Script strategy="afterInteractive">
-                {`
+            <Script async src="/static/js/switch-favicon.js" />
+            <Script
+              async
+              data-api="/_hive"
+              src="/bee.js"
+              strategy="afterInteractive"
+            />
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script strategy="afterInteractive">
+              {`
                 window.dataLayer = window.dataLayer || [];
 
                 function gtag() {
@@ -103,8 +102,7 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}');
               `}
-              </Script>
-            </Layout>
+            </Script>
           </>
         </MDXEmbedProvider>
       </I18nProvider>

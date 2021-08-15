@@ -1,6 +1,9 @@
 // Dependencies
 const withPlugins = require('next-compose-plugins')
 const withPWA = require('next-pwa')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 /** @type {import("next/dist/server/config").NextConfig } */
 const nextConfiguration = {
@@ -108,6 +111,7 @@ module.exports = withPlugins(
         },
       },
     ],
+    withBundleAnalyzer,
   ],
   nextConfiguration
 )

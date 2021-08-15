@@ -11,7 +11,7 @@ import {
 import { document } from 'browser-monads-ts'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { useI18n } from 'next-rosetta'
+import { useClickAway } from 'react-use'
 
 // Internals
 import { LanguageSwitcher } from '@/components'
@@ -19,8 +19,6 @@ import Navigation from './Navigation'
 import MenuToggle from './MenuToggle'
 import { Search } from '../Search'
 import DarkModeToggle from './DarkModeToggle'
-import { useClickOutside } from '@/hooks'
-import type { MyLocale } from 'i18n'
 
 const items = [
   {
@@ -60,7 +58,7 @@ const MobileHeader = (): JSX.Element => {
   const containerRef = React.useRef(null)
 
   const router = useRouter()
-  useClickOutside(containerRef, () => toggleOpen(false))
+  useClickAway(containerRef, () => toggleOpen(false))
 
   React.useMemo(() => {
     if (isOpen) {
@@ -85,7 +83,7 @@ const MobileHeader = (): JSX.Element => {
       )}
 
       <div
-        className="absolute top-0 right-0 bottom-0 w-72 bg-white transition-all duration-300"
+        className="w-72 absolute top-0 bottom-0 right-0 transition-all duration-300 bg-white"
         style={{
           clipPath: `circle(${isOpen ? 1000 * 1.5 + 200 : 24}px at 248px 32px)`,
         }}
@@ -93,7 +91,7 @@ const MobileHeader = (): JSX.Element => {
 
       <Navigation items={items} toggle={toggleOpen} />
 
-      <div className="absolute top-3 right-36 py-2 px-3 bg-white rounded-full">
+      <div className="top-3 right-36 absolute px-3 py-2 bg-white rounded-full">
         <DarkModeToggle />
       </div>
 
