@@ -6,58 +6,30 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            href="/static/icons/apple-touch-icon.png"
-            rel="apple-touch-icon"
-            sizes="180x180"
-          />
-          <link
-            href="/static/icons/favicon-32x32.png"
-            rel="icon"
-            sizes="32x32"
-            type="image/png"
-          />
-          <link
-            href="/static/icons/favicon-194x194.png"
-            rel="icon"
-            sizes="194x194"
-            type="image/png"
-          />
-          <link
-            href="/static/icons/android-chrome-192x192.png"
-            rel="icon"
-            sizes="192x192"
-            type="image/png"
-          />
-          <link
-            href="/static/icons/favicon-16x16.png"
-            rel="icon"
-            sizes="16x16"
-            type="image/png"
-          />
-          <link href="/static/icons/site.webmanifest" rel="manifest" />
-          <link
-            color="#071d49"
-            href="/static/icons/safari-pinned-tab.svg"
-            rel="mask-icon"
-          />
-          <link href="/static/icons/favicon.ico" rel="shortcut icon" />
-          <meta
-            content="Desarrollador Web Frontend | @danestves"
-            name="apple-mobile-web-app-title"
-          />
-          <meta
-            content="Desarrollador Web Frontend | @danestves"
-            name="application-name"
-          />
-          <meta content="#071d49" name="msapplication-TileColor" />
-          <meta
-            content="/static/icons/browserconfig.xml"
-            name="msapplication-config"
-          />
-          <meta content="#071d49" name="theme-color" />
+          {/* Base Meta */}
+          <meta charSet="utf-8" />
 
-          <meta content="fc24b57a0cc85e0e" name="yandex-verification" />
+          {/* Meta */}
+          <meta
+            content="#FAFAFA"
+            media="(prefers-color-scheme: light)"
+            name="msapplication-TileColor"
+          />
+          <meta
+            content="#050505"
+            media="(prefers-color-scheme: dark)"
+            name="msapplication-TileColor"
+          />
+          <meta
+            content="#FAFAFA"
+            media="(prefers-color-scheme: light)"
+            name="theme-color"
+          />
+          <meta
+            content="#050505"
+            media="(prefers-color-scheme: dark)"
+            name="theme-color"
+          />
 
           <link
             crossOrigin="anonymous"
@@ -70,7 +42,7 @@ export default class MyDocument extends Document {
           />
         </Head>
 
-        <body className="bg-[#FAFAFA] dark:bg-secondary-500">
+        <body className="bg-[#FAFAFA] dark:bg-[#050505]">
           <Main />
           <NextScript />
         </body>

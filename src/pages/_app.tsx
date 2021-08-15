@@ -3,8 +3,9 @@ import * as React from 'react'
 import { window } from 'browser-monads-ts'
 import { MDXEmbedProvider } from 'mdx-embed'
 import { I18nProvider } from 'next-rosetta'
-import { LogoJsonLd, SocialProfileJsonLd } from 'next-seo'
+import { DefaultSeo, LogoJsonLd, SocialProfileJsonLd } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
+import Head from 'next/head'
 import Script from 'next/script'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 
@@ -12,9 +13,15 @@ import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import { Layout } from '@/components'
 import { GA_MEASUREMENT_ID, pageview } from '@/lib/gtag'
 import '@/styles/main.css'
+import defaultSeo from 'seoConfig'
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
   React.useEffect(() => {
+    /**
+     * Handle a route change.
+     *
+     * @param url The URL of the page
+     */
     const handleRouteChange = (url: string) => {
       pageview(url)
     }
@@ -26,11 +33,31 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
     }
   }, [router.events])
 
+  let lang = ''
+  switch (router.locale) {
+    case 'es':
+      lang = '/es'
+      break
+    default:
+      break
+  }
+
   return (
     <ThemeProvider attribute="class">
       <I18nProvider table={pageProps.table}>
         <MDXEmbedProvider>
           <>
+            <Head>
+              <meta
+                content="width=device-width, initial-scale=1"
+                name="viewport"
+              />
+            </Head>
+            <DefaultSeo
+              {...defaultSeo(router.locale)}
+              canonical={`https://danestves.com${lang}${router.asPath}`}
+            />
+
             <LogoJsonLd
               logo="https://danestves.com/logo.png"
               url="https://danestves.com"
@@ -38,7 +65,7 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
             <SocialProfileJsonLd
               name="Daniel Esteves"
               sameAs={[
-                'https://www.youtube.com/channel/UC6YYVDKZC3mu1iB8IOCFqcw',
+                'https://youtube.com/danesteves',
                 'https://instagram.com/danestves',
                 'https://www.linkedin.com/in/danestves',
                 'https://twitter.com/danestves',
@@ -50,6 +77,7 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element | null {
             <Layout>
               <Component {...pageProps} />
 
+              <Script async src="/static/js/switch-favicon.js" />
               <Script
                 async
                 data-api="/_hive"

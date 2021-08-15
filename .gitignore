@@ -34,5 +34,8 @@ yarn-error.log*
 .vercel
 public/sitemap.xml
 public/rss.xml
+
+# PWA
 public/sw.js
 public/workbox-*.js
+public/fallback-*.js

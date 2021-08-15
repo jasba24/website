@@ -1,5 +1,9 @@
+// Dependencies
+const withPlugins = require('next-compose-plugins')
+const withPWA = require('next-pwa')
+
 /** @type {import("next/dist/server/config").NextConfig } */
-module.exports = {
+const nextConfiguration = {
   i18n: {
     defaultLocale: 'en',
     locales: ['es', 'en'],
@@ -71,6 +75,7 @@ module.exports = {
       'i.ytimg.com',
     ],
   },
+  reactStrictMode: true,
   experimental: {
     esmExternals: true,
   },
@@ -91,6 +96,21 @@ module.exports = {
     return config
   },
 }
+
+module.exports = withPlugins(
+  [
+    [
+      withPWA,
+      {
+        pwa: {
+          dest: 'public',
+          disable: process.env.NODE_ENV === 'development',
+        },
+      },
+    ],
+  ],
+  nextConfiguration
+)
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `

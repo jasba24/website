@@ -4,9 +4,50 @@ import type { DefaultSeoProps } from 'next-seo'
 const baseUrl = 'https://danestves.com'
 
 const common: DefaultSeoProps = {
+  additionalLinkTags: [
+    {
+      href: '/static/icons/apple-touch-icon.png',
+      rel: 'apple-touch-icon',
+      sizes: '180x180',
+    },
+    {
+      href: '/static/icons/favicon-32x32.png',
+      rel: 'icon',
+      sizes: '32x32',
+      type: 'image/png',
+    },
+    {
+      href: '/static/icons/favicon-16x16.png',
+      rel: 'icon',
+      sizes: '16x16',
+      type: 'image/png',
+    },
+    {
+      href: '/static/icons/site.webmanifest',
+      rel: 'manifest',
+    },
+    {
+      href: '/static/icons/safari-pinned-tab.svg',
+      rel: 'mask-icon',
+      color: '#050505',
+    },
+    {
+      href: '/static/icons/favicon.ico',
+      rel: 'shortcut icon',
+    },
+  ],
+  additionalMetaTags: [
+    { content: '#FAFAFA', name: 'msapplication-TileColor' },
+    {
+      content: '/static/icons/browserconfig.xml',
+      name: 'msapplication-config',
+    },
+    { content: 'light dark', name: 'color-scheme' },
+    { content: 'fc24b57a0cc85e0e', name: 'yandex-verification' },
+  ],
   languageAlternates: [
-    { href: `${baseUrl}/en`, hrefLang: 'en' },
-    { href: baseUrl, hrefLang: 'es' },
+    { href: baseUrl, hrefLang: 'en' },
+    { href: `${baseUrl}/es`, hrefLang: 'es' },
   ],
   openGraph: {
     defaultImageHeight: 630,
@@ -32,8 +73,8 @@ const title_by_lang = {
   es: 'Daniel Esteves - Frontend Developer',
 }
 const description_by_lang = {
-  en: 'Daniel Esteves has been working as a Frontend Developer for more than 6 years, having experience on projects using React, jQuery, SASS and WordPress.',
-  es: 'Daniel Esteves desarrollador web frontend ha realizado sitios web utilizando WordPress, React, Gatsby, NextJS y mucho más. Listo para hacer tus sueños realidad.',
+  en: 'Learn about web development, discover tools that can help us day to day, and find courses made by @danestves about React, NextJS, Gatsby, Nuxt, Website Optimization, Firebase and much more.',
+  es: 'Aprende sobre desarrollo web, descubre herramientas que nos pueden ayudar en el día a día, y encuentra cursos realizados por @danestves sobre React, NextJS, Gatsby, Nuxt, Optimización de sitios web, Firebase y mucho más.',
 }
 
 const getSeoByLang = (lang: string): DefaultSeoProps => {
