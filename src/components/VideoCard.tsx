@@ -1,7 +1,6 @@
 // Dependencies
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useWebPSupportCheck } from 'react-use-webp-support-check'
 
 // Internals
 import { fromNow } from '@/utils'
@@ -13,21 +12,18 @@ export const VideoCard = ({
   statistics,
 }: YouTubeVideo): JSX.Element => {
   const router = useRouter()
-  const supportsWebP = useWebPSupportCheck()
 
-  const imageUrl = supportsWebP
-    ? snippet?.thumbnails?.medium?.url
-        ?.replace('vi/', 'vi_webp/')
-        .replace('.jpg', '.webp')
-    : snippet?.thumbnails?.medium?.url
+  const imageUrl = snippet?.thumbnails?.medium?.url
+    ?.replace('vi/', 'vi_webp/')
+    .replace('.jpg', '.webp')
 
   return (
-    <div className="relative font-roboto">
+    <div className="font-roboto relative">
       <span className="sr-only">See {snippet?.title} on YouTube</span>
 
-      <div className="block relative flex-none w-full">
+      <div className="relative flex-none block w-full">
         <a
-          className="block overflow-hidden mx-auto h-full no-underline cursor-pointer"
+          className="block h-full mx-auto overflow-hidden no-underline cursor-pointer"
           href={`https://www.youtube.com/watch?v=${id}`}
           rel="noopener noreferrer"
           target="_blank"
@@ -42,7 +38,7 @@ export const VideoCard = ({
         </a>
       </div>
 
-      <div className="flex relative flex-row mx-3 cursor-pointer">
+      <div className="relative flex flex-row mx-3 cursor-pointer">
         <div className="overflow-x-hidden">
           <h3 className="mt-3 mb-[6px]">
             <a

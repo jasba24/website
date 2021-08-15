@@ -10,7 +10,6 @@ import Script from 'next/script'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 
 // Internals
-import { Layout } from '@/components'
 import { GA_MEASUREMENT_ID, pageview } from '@/lib/gtag'
 import '@/styles/main.css'
 import defaultSeo from 'seoConfig'
