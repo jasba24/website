@@ -1,5 +1,4 @@
 // Dependencies
-import remarkA11yEmoji from '@fec/remark-a11y-emoji'
 import fs from 'fs'
 import matter from 'gray-matter'
 import he from 'he'
@@ -47,7 +46,7 @@ export const getStaticProps: GetStaticProps<I18nProps<MyLocale>> = async (
       ...data,
       mdx: await serialize(he.decode(content), {
         mdxOptions: {
-          remarkPlugins: [remarkCodeTitles, remarkA11yEmoji],
+          remarkPlugins: [remarkCodeTitles],
           rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: 'append' }],

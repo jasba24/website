@@ -1,6 +1,9 @@
-import type { MyLocale } from '.'
+// Internals
+import NotFound from './404'
+import type { MyLocale } from '..'
 
 export const table: MyLocale = {
+  404: NotFound,
   defaultSeo: {
     title: 'Daniel Esteves - Frontend Developer',
     description:

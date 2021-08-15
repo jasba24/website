@@ -1,4 +1,13 @@
 export interface MyLocale {
+  404: {
+    seo: {
+      title: string
+    }
+    headline: string
+    title: string
+    message: string
+    back: string
+  }
   defaultSeo: {
     title: string
     description: string

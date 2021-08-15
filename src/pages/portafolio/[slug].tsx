@@ -1,5 +1,4 @@
 // Dependencies
-import remarkA11yEmoji from '@fec/remark-a11y-emoji'
 import he from 'he'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -73,7 +72,7 @@ export const getStaticProps: GetStaticProps<I18nProps<MyLocale>> = async (
         ...data.portfolio,
         mdx: await serialize(he.decode(data.portfolio?.body || ''), {
           mdxOptions: {
-            remarkPlugins: [remarkCodeTitles, remarkA11yEmoji],
+            remarkPlugins: [remarkCodeTitles],
             rehypePlugins: [
               rehypeSlug,
               [rehypeAutolinkHeadings, { behavior: 'append' }],
