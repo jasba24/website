@@ -143,17 +143,30 @@ const PostPage: NextPage<PostPageProps> = ({ featured, posts }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  /**
+   * Get the post count from GraphCMS
+   */
   const { data } = await sdk().postsCount()
 
-  const paths = [
+  /**
+   * Create a list of pages based on the number of posts and the limit
+   */
+  const pages = [
     ...numberOfPages({
       total: data.postsConnection.aggregate.count,
       limit,
     }),
-  ].map((page) => ({
-    params: { page: String(page) },
-  }))
+  ].map((page) => {
+    return locales.map((locale) => ({
+      params: { page: String(page) },
+      locale,
+    }))
+  })
+  /**
+   * Concat the pages together to avoid array in array
+   */
+  const paths = pages.concat.apply([], pages)
 
   return {
     paths,

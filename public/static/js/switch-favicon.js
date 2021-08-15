@@ -8,12 +8,11 @@ handleDarkmode(darkModeMediaQuery)
  * @param {MediaQueryListEvent} e The media query list event
  */
 function handleDarkmode(e) {
-  const darkModeOn = e.matches // true if dark mode is enabled
-  const favicon = document.querySelector('link[rel="shortcut icon"]') // get favicon-192.png element
-  const largeFavicon = document.querySelector('link[rel="icon"]') // get favicon.ico element
+  const darkModeOn = e.matches // True if the media query matches
+  const favicon = document.querySelector('link[rel="shortcut icon"]') // Get the favicon
 
-  if (!favicon || !largeFavicon) {
-    return // where are our favicon elements???
+  if (!favicon) {
+    return // If favicon is not found, do nothing
   }
 
   if (darkModeOn) {
