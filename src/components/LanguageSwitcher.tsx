@@ -1,9 +1,11 @@
 // Dependencies
 import { Listbox, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+
+// Internals
+import { clsx } from '@/utils'
 
 export const LanguageSwitcher = (): JSX.Element => {
   const { locale, locales, route, push, asPath } = useRouter()
@@ -24,7 +26,7 @@ export const LanguageSwitcher = (): JSX.Element => {
           <div className="relative">
             <span className="inline-block w-full rounded-md">
               <Listbox.Button
-                className="relative py-2 pr-8 pl-3 w-full text-left rounded-md focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none sm:text-sm"
+                className="focus-visible:rounded focus-visible:ring-2 focus-visible:ring-black focus:outline-none sm:text-sm relative w-full py-2 pl-3 pr-8 text-left rounded-md"
                 title="Change the language of the page"
               >
                 <span className="flex items-center w-8">
@@ -38,7 +40,7 @@ export const LanguageSwitcher = (): JSX.Element => {
                   />
                 </span>
 
-                <span className="flex absolute inset-y-0 right-0 items-center pr-2 ml-3 pointer-events-none">
+                <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
                   <ChevronDownIcon className="w-5 h-5" />
                 </span>
               </Listbox.Button>
@@ -52,7 +54,7 @@ export const LanguageSwitcher = (): JSX.Element => {
               show={open}
             >
               <Listbox.Options
-                className="overflow-auto py-1 max-h-60 text-base leading-6 rounded-md shadow-sm focus:outline-none sm:text-sm sm:leading-5"
+                className="max-h-60 focus:outline-none sm:text-sm sm:leading-5 py-1 overflow-auto text-base leading-6 rounded-md shadow-sm"
                 static
               >
                 {locales?.map((loc) => (

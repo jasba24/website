@@ -1,7 +1,6 @@
 // Dependencies
 import fs from 'fs'
 import matter from 'gray-matter'
-import he from 'he'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import path from 'path'
@@ -44,7 +43,7 @@ export const getStaticProps: GetStaticProps<I18nProps<MyLocale>> = async (
     props: {
       table,
       ...data,
-      mdx: await serialize(he.decode(content), {
+      mdx: await serialize(content, {
         mdxOptions: {
           remarkPlugins: [remarkCodeTitles],
           rehypePlugins: [

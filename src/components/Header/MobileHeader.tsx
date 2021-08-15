@@ -9,12 +9,12 @@ import {
   RssIcon,
 } from '@heroicons/react/outline'
 import { document } from 'browser-monads-ts'
-import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useClickAway } from 'react-use'
 
 // Internals
 import { LanguageSwitcher } from '@/components'
+import { clsx } from '@/utils'
 import Navigation from './Navigation'
 import MenuToggle from './MenuToggle'
 import { Search } from '../Search'

@@ -1,12 +1,12 @@
 // Dependencies
 import * as React from 'react'
-import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useI18n } from 'next-rosetta'
 import { useWindowScroll, usePrevious } from 'react-use'
 
 // Internals
 import { Link, LanguageSwitcher, Search } from '@/components'
+import { clsx } from '@/utils'
 import MobileHeader from './MobileHeader'
 import DarkModeToggle from './DarkModeToggle'
 import type { MyLocale } from 'i18n'

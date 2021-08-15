@@ -1,5 +1,4 @@
 // Dependencies
-import he from 'he'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
@@ -70,7 +69,7 @@ export const getStaticProps: GetStaticProps<I18nProps<MyLocale>> = async (
       table,
       portfolio: {
         ...data.portfolio,
-        mdx: await serialize(he.decode(data.portfolio?.body || ''), {
+        mdx: await serialize(data.portfolio?.body, {
           mdxOptions: {
             remarkPlugins: [remarkCodeTitles],
             rehypePlugins: [

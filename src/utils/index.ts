@@ -1,3 +1,4 @@
+export * from './clsx'
 export * from './contains'
 export * from './date'
 export * from './formatCommaNumber'
